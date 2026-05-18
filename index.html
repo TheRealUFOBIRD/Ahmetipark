@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahmetipark</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Top-Down Parking Challenge</p>
+        <h1>Ahmetipark</h1>
+        <p class="hero-copy">
+          Parke praezise, taste dich durch enge Szenarien und baue im Editor deinen eigenen Parkplatz.
+        </p>
+      </div>
+      <div class="status-card">
+        <span class="status-label">Status</span>
+        <strong id="statusText">Fahrzeug bereit</strong>
+        <span id="statusHint">Pfeiltasten oder Lenkrad nutzen.</span>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel sidebar">
+        <section class="panel-block">
+          <h2>Spiel</h2>
+          <label class="field">
+            <span>Modus</span>
+            <select id="modeSelect">
+              <option value="play">Spielen</option>
+              <option value="editor">Editor</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span>Level</span>
+            <select id="levelSelect"></select>
+          </label>
+
+          <label class="field">
+            <span>Auto</span>
+            <select id="carSelect"></select>
+          </label>
+
+          <div class="button-row">
+            <button id="resetButton" type="button">Neu starten</button>
+            <button id="nextLevelButton" type="button">Naechstes Level</button>
+          </div>
+
+          <div class="scenario-card">
+            <h3 id="scenarioName">Level</h3>
+            <p id="scenarioDescription">Lade Szenario...</p>
+          </div>
+        </section>
+
+        <section class="panel-block hud-block">
+          <h2>Fahrdaten</h2>
+          <div class="hud-grid">
+            <div class="hud-item">
+              <span>Tempo</span>
+              <strong id="speedValue">0 km/h</strong>
+            </div>
+            <div class="hud-item">
+              <span>Lenkung</span>
+              <strong id="steerValue">0 deg</strong>
+            </div>
+            <div class="hud-item">
+              <span>Gang</span>
+              <strong id="gearValue">N</strong>
+            </div>
+            <div class="hud-item">
+              <span>Fortschritt</span>
+              <strong id="progressValue">0 / 0</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel-block">
+          <h2>Lenkrad</h2>
+          <div class="wheel-wrap">
+            <div id="steeringWheel" class="steering-wheel" aria-label="Virtuelles Lenkrad">
+              <img class="steering-wheel-image" src="assets/steeringwheel.png" alt="Lenkrad">
+            </div>
+          </div>
+          <div class="button-row pedal-row">
+            <button id="pedalForward" type="button">Gas</button>
+            <button id="pedalReverse" type="button">Rueckwaerts / Bremse</button>
+          </div>
+          <p class="microcopy">Mit der Maus am Lenkrad ziehen oder mit den Pfeiltasten fahren.</p>
+        </section>
+
+        <section class="panel-block">
+          <h2>Steuerung</h2>
+          <ul class="tips">
+            <li><strong>Pfeiltasten:</strong> Gas, Rueckwaerts und Lenken</li>
+            <li><strong>Lenkrad:</strong> Mit der Maus ziehen fuer feine Lenkung</li>
+            <li><strong>Ziel:</strong> Im markierten Feld gerade und langsam zum Stillstand kommen</li>
+          </ul>
+        </section>
+      </aside>
+
+      <main class="panel stage-panel">
+        <div class="stage-topbar">
+          <div>
+            <span class="topbar-label">Aktiver Modus</span>
+            <strong id="modeLabel">Spielen</strong>
+          </div>
+          <div>
+            <span class="topbar-label">Aktuelles Auto</span>
+            <strong id="carNameLabel">Kompakt</strong>
+          </div>
+          <div>
+            <span class="topbar-label">Szenario</span>
+            <strong id="levelNameLabel">Einparken</strong>
+          </div>
+        </div>
+
+        <div class="canvas-wrap">
+          <canvas id="gameCanvas" width="960" height="600"></canvas>
+          <div id="toast" class="toast hidden"></div>
+        </div>
+
+        <section class="panel-block editor-block stage-editor hidden" id="editorPanel">
+          <h2>Editor</h2>
+          <div class="tool-grid">
+            <button class="tool-button active" data-tool="select" type="button">Auswaehlen</button>
+            <button class="tool-button" data-tool="obstacle" type="button">Hindernis</button>
+            <button class="tool-button" data-tool="parking" type="button">Parkfeld</button>
+            <button class="tool-button" data-tool="car" type="button">Auto setzen</button>
+            <button class="tool-button" data-tool="erase" type="button">Loeschen</button>
+          </div>
+          <div class="button-row">
+            <button id="rotateLeftButton" type="button">Drehen -15 deg</button>
+            <button id="rotateRightButton" type="button">Drehen +15 deg</button>
+          </div>
+          <div class="button-row">
+            <button id="clearEditorButton" type="button">Leere Karte</button>
+            <button id="saveEditorButton" type="button">Als Level speichern</button>
+          </div>
+          <button id="testEditorButton" class="full-width" type="button">Im Spielfeld testen</button>
+          <p class="microcopy">
+            Ziehe Hindernisse und Parkfelder mit der Maus auf die Karte. Das Auto laesst sich platzieren und verschieben.
+          </p>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
